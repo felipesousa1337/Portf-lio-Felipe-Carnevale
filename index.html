@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfólio - Felipe Carnevale</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <script>
+    // Quando a página terminar de carregar
+    document.addEventListener("DOMContentLoaded", function() {
+      // Pegar todos os links do menu que começam com #
+      var links = document.querySelectorAll("nav a[href^='#']");
+      
+      // Para cada link, adicionar evento de clique
+      for(var i = 0; i < links.length; i++) {
+        links[i].addEventListener("click", function(e) {
+          e.preventDefault(); 
+          var href = this.getAttribute("href"); 
+          var target = document.querySelector(href); 
+          if (target) {
+            
+            window.scrollTo({
+              top: target.offsetTop - 60,
+              behavior: "smooth"
+            });
+          }
+        });
+      }
+    });
+
+    // Função para validar formulário de contato
+    function validarFormulario(event) {
+      event.preventDefault(); 
+
+      // Pegar os campos pelo id
+      var nome = document.getElementById("nome");
+      var email = document.getElementById("email");
+      var mensagem = document.getElementById("mensagem");
+
+      // Resetar a borda para a cor padrão
+      nome.style.borderColor = "#ccc";
+      email.style.borderColor = "#ccc";
+      mensagem.style.borderColor = "#ccc";
+
+      // Verificar se o nome tem pelo menos 3 caracteres
+      if (nome.value.trim().length < 3) {
+        alert("Por favor, digite um nome com pelo menos 3 caracteres.");
+        nome.style.borderColor = "red";
+        nome.focus();
+        return false; 
+      }
+
+      // Verificar se o email tem '@' e '.'
+      if (email.value.indexOf("@") === -1 || email.value.indexOf(".") === -1) {
+        alert("Por favor, digite um e-mail válido.");
+        email.style.borderColor = "red";
+        email.focus();
+        return false; 
+      }
+
+      // Verificar se a mensagem não está vazia
+      if (mensagem.value.trim() === "") {
+        alert("Por favor, digite uma mensagem.");
+        mensagem.style.borderColor = "red";
+        mensagem.focus();
+        return false; 
+      }
+
+      alert("Formulário enviado com sucesso!");
+      document.querySelector("form").reset(); // limpar formulário
+      return true; 
+    }
+  </script>
+</head>
+<body>
+  <!-- Tela de carregamento -->
+  <div id="preloader">
+    <div class="loader-text">Bem-vindo ao meu Portfólio!</div>
+  </div>
+
+  <!-- Cabeçalho com a minha foto e menu -->
+  <header>
+    <div class="intro-container">
+      <img src="minhafoto.jpg" alt="Foto de Felipe" class="profile-pic" />
+      <div>
+        <h1>Felipe Carnevale</h1>
+        <p>Estudante de Análise e Desenvolvimento de Sistemas</p>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#formacao">Formação</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Conteúdo principal -->
+  <main>
+    <!-- Sobre mim -->
+    <section id="sobre">
+      <h2>Sobre Mim</h2>
+      <p>
+        Meu nome é Felipe Carnevale, tenho 23 anos e atualmente estou cursando Análise e Desenvolvimento de Sistemas. Sempre gostei de tecnologia e, nos últimos anos, comecei a me dedicar de verdade ao mundo da programação.
+        Estou em busca de crescimento profissional e pessoal, aprendendo cada dia mais sobre desenvolvimento, lógica e criação de sites e sistemas. Gosto de resolver problemas, testar ideias e ver as coisas funcionando na prática.
+      </p>
+    </section>
+
+    <!-- Formação -->
+    <section id="formacao">
+      <h2>Formação</h2>
+      <ul>
+        <li>Cursando Análise e Desenvolvimento de Sistemas Uninter</li>
+        <li>Inglês Intermediário</li>
+        <li>Estudando: HTML, CSS, Python, Java Script e C</li>
+      </ul>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato">
+      <h2>Contato</h2>
+      <form onsubmit="validarFormulario(event)">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="mensagem">Mensagem</label>
+        <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Rodapé do meu site -->
+  <footer>
+    <p>&copy; 2025 Felipe • Portfólio Pessoal</p>
+  </footer>
+
+  <script>
+    // Efeito para esconder o preloader após o carregamento da página
+    window.addEventListener("load", function() {
+      var preloader = document.getElementById("preloader");
+      setTimeout(function() {
+        preloader.classList.add("fade-out");
+      }, 1200); // Tempo do preloader
+    });
+  </script>
+</body>
+</html>
